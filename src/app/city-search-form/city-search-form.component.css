@@ -1,0 +1,53 @@
+/* Material UI overwrites */
+.mat-mdc-card {
+  margin: 16px auto;
+  max-width: 600px;
+}
+
+.mat-mdc-card-content {
+  padding: 0 !important;
+}
+
+.mat-mdc-form-field {
+  margin: 8px 16px;
+}
+
+/* Form */
+.searchForm {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  margin: 0 0 8px 0;
+}
+
+button[type="submit"] {
+  margin: 8px;
+}
+
+/* Swap cities  */
+.cities-select-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.swap-cities-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 16px;
+  position: absolute;
+  top: 63px;
+  left: 0;
+  right: 0;
+}
+
+/* Media queries */
+@media only screen and (max-width: 759px) {
+  .mat-mdc-card {
+    margin: 16px;
+    max-width: 100%;
+    min-width: 320px;
+  }
+}

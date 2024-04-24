@@ -1,0 +1,94 @@
+<mat-card>
+  <mat-card-header>
+    <h2>Select Your Itinerary</h2>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form class="searchForm" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <div class="cities-select-container">
+        <app-city-select
+          label="Departure City"
+          [form]="searchForm"
+          [handleChange]="onChangeCity"
+          selectId="departureCity"
+          [errorMessage]="
+            searchForm.get('departureCity')?.hasError('hasSameCity')
+              ? 'Cities cannot be the same'
+              : ''
+          "
+        ></app-city-select>
+
+        <div class="swap-cities-container">
+          <button
+            aria-label="Swap departure and destination cities"
+            (click)="onSwapDepartureAndDestinationValues()"
+            color="primary"
+            [disabled]="isSwapCitiesDisabled"
+            mat-mini-fab
+            type="button"
+          >
+            <mat-icon>swap_vert</mat-icon>
+          </button>
+        </div>
+
+        <app-city-select
+          label="Destination City"
+          [form]="searchForm"
+          [handleChange]="onChangeCity"
+          selectId="destinationCity"
+          [errorMessage]="
+            searchForm.get('destinationCity')?.hasError('hasSameCity')
+              ? 'Cities cannot be the same'
+              : ''
+          "
+        ></app-city-select>
+      </div>
+
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Departure Date — Return Date</mat-label>
+
+        <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+          <input
+            formControlName="startDate"
+            matStartDate
+            placeholder="Departure Date"
+            (dateChange)="onChangeDate()"
+          />
+          <input
+            formControlName="endDate"
+            matEndDate
+            placeholder="Return Date"
+            (dateChange)="onChangeDate()"
+          />
+        </mat-date-range-input>
+
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+
+        @if ( searchForm.get('startDate')?.hasError('required') ||
+        searchForm.get('endDate')?.hasError('required')) {
+        <mat-error>Departure and return dates required</mat-error>
+        } @if ( searchForm.get('startDate')?.hasError('matDatepickerMin')) {
+        <mat-error>Departure date must be today or later</mat-error>
+        } @if ( searchForm.get('endDate')?.hasError('matEndDateInvalid')) {
+        <mat-error
+          >Return date must be same or greater than start date</mat-error
+        >
+        }
+      </mat-form-field>
+
+      <button
+        color="primary"
+        [disabled]="isSubmitDisabled"
+        mat-raised-button
+        type="submit"
+        full-width
+      >
+        Submit
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,1 +1,10 @@
 /* Add application styles & imports to this file! */
+
+html {
+  font-family: Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
