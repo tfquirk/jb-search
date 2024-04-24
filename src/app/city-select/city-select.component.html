@@ -1,0 +1,21 @@
+<div class="select-container" [formGroup]="form">
+  <mat-form-field appearance="outline" floatLabel="always">
+    <mat-label>{{ label }}</mat-label>
+
+    <mat-select
+      [formControlName]="selectId"
+      placeholder="Select {{ label }}"
+      (selectionChange)="handleChange()"
+    >
+      @for (city of citiesList; track city) {
+      <mat-option [value]="city.value">{{ city.name }}</mat-option>
+      }
+    </mat-select>
+
+    @if ( form.get(selectId)?.hasError('required')) {
+    <mat-error>{{ label }} is required</mat-error>
+    } @if ( errorMessage ) {
+    <mat-error>{{ errorMessage }}</mat-error>
+    }
+  </mat-form-field>
+</div>
